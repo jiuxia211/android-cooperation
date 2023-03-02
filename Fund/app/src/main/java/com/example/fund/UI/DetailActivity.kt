@@ -21,7 +21,7 @@ class DetailActivity : AppCompatActivity() {
         val fund = intent.getStringExtra("fund")
         binding.title.text = title
         binding.content.text = content
-        binding.fund.text = fund
+        binding.fund.text = "已筹集" + fund + "元"
         Glide.with(this).load(imagePath).into(binding.image)
     }
 }
