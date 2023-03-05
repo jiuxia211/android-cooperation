@@ -8,7 +8,8 @@
         android:id="@+id/cover"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/cover2" />
+        android:src="@drawable/cover2"
+        android:scaleType="centerInside" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -118,8 +119,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:src="@drawable/model1"
         android:id="@+id/file" />
 </LinearLayout>
-

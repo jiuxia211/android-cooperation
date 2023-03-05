@@ -1,4 +1,4 @@
-package com.example.fund.RecycleView
+package com.example.fund.recycleView
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fund.R
-import com.example.fund.UI.AuditActivity
+import com.example.fund.ui.OperateActivity
 
 class OperateAdapter(
     val projectList: List<Project>,
@@ -30,7 +30,7 @@ class OperateAdapter(
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
             val project = projectList[position]
-            val intent = Intent(parent.context, AuditActivity::class.java).apply {
+            val intent = Intent(parent.context, OperateActivity::class.java).apply {
                 putExtra("title", project.title)
                 putExtra("content", project.content)
                 putExtra("imagePath", project.imagePath)

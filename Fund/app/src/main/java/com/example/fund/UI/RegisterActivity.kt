@@ -1,11 +1,11 @@
-package com.example.fund.UI
+package com.example.fund.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fund.R
-import com.example.fund.Service.UserJson
-import com.example.fund.Service.UserService
 import com.example.fund.databinding.RegisterBinding
+import com.example.fund.service.UserJson
+import com.example.fund.service.UserService
 import com.example.fund.showToast
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,6 +19,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.register)
         val binding = RegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
         binding.register.setOnClickListener {
             //获取输入的账号密码邮箱以及用户类型
             val account = binding.EditAccount.text.toString()

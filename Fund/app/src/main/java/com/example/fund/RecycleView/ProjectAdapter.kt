@@ -1,4 +1,4 @@
-package com.example.fund.RecycleView
+package com.example.fund.recycleView
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -10,9 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fund.R
-import com.example.fund.UI.DetailActivity
+import com.example.fund.ui.DetailActivity
 
-class ProjectAdapter(val projectList: List<Project>, val activity: AppCompatActivity) :
+class ProjectAdapter(
+    val projectList: List<Project>,
+    val activity: AppCompatActivity,
+    val token: String
+) :
     RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val projectTitle: TextView = view.findViewById(R.id.title)
@@ -34,6 +38,7 @@ class ProjectAdapter(val projectList: List<Project>, val activity: AppCompatActi
                 putExtra("telephone", project.telephone)
                 putExtra("fund", project.fund)
                 putExtra("pid", project.pid)
+                putExtra("token", token)
             }
             parent.context.startActivity(intent)
         }

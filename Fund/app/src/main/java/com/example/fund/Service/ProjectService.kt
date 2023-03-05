@@ -1,4 +1,4 @@
-package com.example.fund.Service
+package com.example.fund.service
 
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -7,6 +7,9 @@ import retrofit2.http.*
 interface ProjectService {
     @POST("api/v1/project/show/pass")
     fun showPass(@Header("Authorization") token: String): Call<ProjectJson>
+
+    @POST("api/v1/project/show/me")
+    fun showMy(@Header("Authorization") token: String): Call<ProjectJson>
 
     @POST("api/v1/project/create")
     fun createProject(@Header("Authorization") token: String): Call<ProjectJson>
@@ -52,5 +55,13 @@ interface ProjectService {
     fun delete(
         @Header("Authorization") token: String,
         @Path("pid") pid: Int,
+    ): Call<ProjectJson>
+
+    @FormUrlEncoded
+    @POST("api/v1/user/contribution/{pid}")
+    fun contribute(
+        @Header("Authorization") token: String,
+        @Path("pid") pid: Int,
+        @Field("fund") fund: String
     ): Call<ProjectJson>
 }

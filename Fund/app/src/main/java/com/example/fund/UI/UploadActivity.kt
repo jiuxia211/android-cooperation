@@ -1,4 +1,4 @@
-package com.example.fund.UI
+package com.example.fund.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -9,9 +9,9 @@ import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fund.R
-import com.example.fund.Service.ProjectJson
-import com.example.fund.Service.ProjectService
 import com.example.fund.databinding.UploadBinding
+import com.example.fund.service.ProjectJson
+import com.example.fund.service.ProjectService
 import com.example.fund.showToast
 import com.example.fund.utils.URIPathHelper
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -32,6 +32,7 @@ class UploadActivity : AppCompatActivity() {
         setContentView(R.layout.upload)
         val binding = UploadBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
         //获取token
         val token = intent.getStringExtra("token")
         binding.ChoosePicture.setOnClickListener {
@@ -159,10 +160,9 @@ class UploadActivity : AppCompatActivity() {
         }
     }
 
-
     private fun getBitmapFromUri(uri: Uri) = contentResolver
         .openFileDescriptor(uri, "r")?.use {
             BitmapFactory.decodeFileDescriptor(it.fileDescriptor)
         }
-}
 
+}

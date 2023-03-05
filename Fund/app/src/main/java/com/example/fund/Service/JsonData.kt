@@ -1,4 +1,4 @@
-package com.example.fund.Service
+package com.example.fund.service
 
 data class UserJson(
     val `data`: Data,

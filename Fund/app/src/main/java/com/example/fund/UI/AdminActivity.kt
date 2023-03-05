@@ -1,14 +1,14 @@
-package com.example.fund.UI
+package com.example.fund.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fund.R
-import com.example.fund.RecycleView.OperateAdapter
-import com.example.fund.RecycleView.Project
-import com.example.fund.Service.ProjectJson
-import com.example.fund.Service.ProjectService
 import com.example.fund.databinding.AdminBinding
+import com.example.fund.recycleView.OperateAdapter
+import com.example.fund.recycleView.Project
+import com.example.fund.service.ProjectJson
+import com.example.fund.service.ProjectService
 import com.example.fund.showToast
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,28 +24,43 @@ class AdminActivity : AppCompatActivity() {
         setContentView(R.layout.admin)
         supportActionBar?.hide()
         //使用viewBinding
-        val bingding = AdminBinding.inflate(layoutInflater)
-        setContentView(bingding.root)
+        val binding = AdminBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         //获取token
         val token = intent.getStringExtra("token")
         //加载RecycleView适配器
         val layoutManager = LinearLayoutManager(this)
-        bingding.projectre.layoutManager = layoutManager
+        binding.projectRecycle.layoutManager = layoutManager
         val adapter = OperateAdapter(projectList, this, token.toString())
-        bingding.projectre.adapter = adapter
-        bingding.audit.setOnClickListener {
+        binding.projectRecycle.adapter = adapter
+        //下拉刷新
+        binding.swipeRefresh.setColorSchemeResources(R.color.purple_500)
+        binding.swipeRefresh.setOnRefreshListener {
+            status = if (status == 1) {
+                initProjectDelete(intent.getStringExtra("token"))
+                1
+            } else {
+                initProjectDelete(intent.getStringExtra("token"))
+                2
+            }
+            binding.projectRecycle.adapter?.notifyDataSetChanged()
+            binding.swipeRefresh.isRefreshing = false
+        }
+        binding.audit.setOnClickListener {
 
             initProjectAudit(intent.getStringExtra("token"))
-            bingding.projectre.adapter?.notifyDataSetChanged()
+            status = 1
+            binding.projectRecycle.adapter?.notifyDataSetChanged()
         }
-        bingding.delete.setOnClickListener {
+        binding.delete.setOnClickListener {
             initProjectDelete(intent.getStringExtra("token"))
-            bingding.projectre.adapter?.notifyDataSetChanged()
+            status = 2
+            binding.projectRecycle.adapter?.notifyDataSetChanged()
         }
 
     }
 
-    //发送请求返回项目信息
+    //发送请求返回待审核的项目信息
     private fun initProjectAudit(token: String?) {
         val retrofit = Retrofit.Builder()
             .baseUrl("http://10.0.2.2:1234/")
